@@ -1,0 +1,61 @@
+CREATE TABLE Pais (
+ Id_Pais SERIAL NOT NULL,
+ Nombre_Pais VARCHAR(255) NOT NULL,
+ PRIMARY KEY (Id_Pais)
+);
+
+CREATE TABLE Provincia (
+ Id_Provincia INT NOT NULL,
+ Nombre_Provincia VARCHAR(255) NOT NULL,
+ Provincia_IdPais INT NOT NULL,
+ PRIMARY KEY(Id_Provincia),
+ CONSTRAINT fk_pais
+   FOREIGN KEY(Provincia_IdPais) 
+   REFERENCES Pais(Id_Pais));
+   
+
+CREATE TABLE Annios(
+ Id_Annios SERIAL NOT NULL,
+ Annios INT NOT NULL,
+ Annios_Valor DECIMAL NOT NULL,
+ Anios_IdPais INT NOT NULL,
+ PRIMARY KEY(Id_Annios),
+ CONSTRAINT fk_pais_annios
+   FOREIGN KEY(Anios_IdPais) 
+   REFERENCES Pais(Id_Pais));
+   
+CREATE TABLE Casos_Diarios(
+ Idcasos_diarios  SERIAL NOT NULL,
+ Fecha DATE NULL,
+ Active  INT NULL,
+ Case_Fatality_Ratio DECIMAL NULL,
+ Confirmed INT NULL,
+ Deaths INT NULL,
+ Incidence_Rate DECIMAL NULL,
+ Latitude VARCHAR(255) NULL,
+ Longitude VARCHAR(255) NULL,
+ Casos_IdProvincia  INT NULL,
+ Recovered  INT NULL,
+ PRIMARY KEY (Idcasos_diarios),
+ CONSTRAINT fk_provincia_casosdiarios
+   FOREIGN KEY(Casos_IdProvincia) 
+   REFERENCES Provincia(Id_Provincia));
+   
+CREATE TABLE DATOS_MACRO(
+Iddatos_macro SERIAL NOT NULL,
+DatoMarco_IdPais INT NULL,
+Health_index DECIMAL NULL,
+Obese_rate DECIMAL NULL,
+Suicide_rate DECIMAL NULL,
+Democracies DECIMAL NULL,
+Hdr_rate DECIMAL NULL,
+Life_Exp DECIMAL NULL,
+Gpi DECIMAL NULL,
+Iq_rate DECIMAL NULL,
+Deaths_per_1000_live_births DECIMAL NULL,
+Gdp_usd INT NULL,
+Ipc DECIMAL NULL,
+PRIMARY KEY (Iddatos_macro),
+CONSTRAINT fk_pais_datosmarco
+   FOREIGN KEY(DatoMarco_IdPais) 
+   REFERENCES Pais(Id_Pais));
